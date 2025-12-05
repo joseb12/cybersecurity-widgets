@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Roadmap Progress</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyber-green: #00ff41;
+            --cyber-blue: #00d4ff;
+            --cyber-purple: #b847ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --cyber-red: #ff0040;
+            --grid-color: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyber-green);
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Animated Grid Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: gridPulse 3s ease-in-out infinite alternate;
+            opacity: 0.3;
+        }
+
+        @keyframes gridPulse {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.4; }
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--cyber-green), var(--cyber-blue), var(--cyber-purple));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--cyber-blue);
+            margin-top: 10px;
+            opacity: 0.8;
+            animation: typing 2s steps(40) 1s forwards;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes typing {
+            to { width: 100%; }
+        }
+
+        .progress-section {
+            background: rgba(16, 16, 16, 0.8);
+            border: 2px solid var(--cyber-green);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 65, 0.2),
+                inset 0 0 20px rgba(0, 255, 65, 0.05);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--cyber-green), var(--cyber-blue));
+            border-radius: 10px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: borderGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.6; }
+        }
+
+        .current-year {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(90deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 255, 0.1));
+            border-radius: 8px;
+            border-left: 4px solid var(--cyber-green);
+        }
+
+        .year-info {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            margin: 20px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--cyber-blue);
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyber-green), var(--cyber-blue));
+            border-radius: 15px;
+            position: relative;
+            transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .years-timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .year-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .year-card:hover {
+            background: rgba(0, 255, 65, 0.1);
+            border-color: var(--cyber-green);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .year-card.completed {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--cyber-blue);
+        }
+
+        .year-card.current {
+            background: rgba(184, 71, 255, 0.1);
+            border-color: var(--cyber-purple);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .year-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cyber-green);
+        }
+
+        .year-description {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            background: rgba(16, 16, 16, 0.6);
+            border: 1px solid var(--cyber-blue);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cyber-green);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--cyber-blue);
+            margin-top: 5px;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .years-timeline {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title glitch">CYBER ROADMAP</h1>
+            <p class="subtitle">2026 → 2033 // ÉLITE CYBERSECURITY JOURNEY</p>
+        </div>
+
+        <div class="progress-section">
+            <div class="current-year">
+                <div class="year-info">
+                    <span id="currentDate"></span>
+                </div>
+                <div class="year-info">
+                    <span id="daysProgress"></span>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-label">
+                    <span>Progreso Total del Roadmap</span>
+                    <span id="overallProgress">5%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 5%"></div>
+                </div>
+            </div>
+
+            <div class="years-timeline">
+                <div class="year-card current">
+                    <div class="year-number">2026</div>
+                    <div class="year-description">Fundaciones</div>
+                </div>
+                <div class="year-card">
+                    <div class="year-number">2027</div>
+                    <div class="year-description">Pentesting</div>
+                </div>
+                <div class="year-card">
+                    <div class="year-number">2028</div>
+                    <div class="year-description">OSCP</div>
+                </div>
+                <div class="year-card">
+                    <div class="year-number">2029</div>
+                    <div class="year-description">OSWE</div>
+                </div>
+                <div class="year-card">
+                    <div class="year-number">2030</div>
+                    <div class="year-description">Cloud</div>
+                </div>
+                <div class="year-card">
+                    <div class="year-number">2031</div>
+                    <div class="year-description">Senior</div>
+                </div>
+                <div class="year-card">
+                    <div class="year-number">2032</div>
+                    <div class="year-description">OSEP</div>
+                </div>
+                <div class="year-card">
+                    <div class="year-number">2033</div>
+                    <div class="year-description">OSCE³</div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="yearProgress">1</div>
+                    <div class="stat-label">Año Actual</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="certCount">0</div>
+                    <div class="stat-label">Certificaciones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="timeLeft">7</div>
+                    <div class="stat-label">Años Restantes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Actualizar fecha actual y días transcurridos
+        function updateCurrentDate() {
+            const now = new Date();
+            const startDate = new Date('2026-01-01');
+            const currentYear = now.getFullYear();
+            const currentDate = now.toLocaleDateString('es-ES', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            // Calcular días desde el inicio del roadmap
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('currentDate').textContent = currentDate;
+            document.getElementById('daysProgress').textContent = `Día ${diffDays} del journey`;
+            
+            // Calcular progreso basado en años (2026-2033 = 8 años)
+            const roadmapStartYear = 2026;
+            const roadmapEndYear = 2033;
+            const totalYears = roadmapEndYear - roadmapStartYear;
+            const currentProgress = Math.max(0, currentYear - roadmapStartYear);
+            const progressPercentage = Math.min(100, (currentProgress / totalYears) * 100);
+            
+            document.getElementById('overallProgress').textContent = `${progressPercentage.toFixed(0)}%`;
+            document.getElementById('progressFill').style.width = `${progressPercentage}%`;
+            
+            document.getElementById('yearProgress').textContent = Math.max(1, currentProgress);
+            document.getElementById('timeLeft').textContent = Math.max(0, roadmapEndYear - currentYear);
+        }
+
+        // Simular conexión a API de Notion (para después)
+        function simulateNotionData() {
+            // Esto se reemplazará con datos reales de la API de Notion
+            const certifications = 0; // Obtener de Notion API
+            document.getElementById('certCount').textContent = certifications;
+        }
+
+        // Efectos de animación en cards
+        document.querySelectorAll('.year-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.animation = 'none';
+                card.offsetHeight; // Trigger reflow
+                card.style.animation = 'pulse 0.5s ease-in-out';
+            });
+        });
+
+        // Inicializar
+        updateCurrentDate();
+        simulateNotionData();
+        
+        // Actualizar cada hora
+        setInterval(updateCurrentDate, 3600000);
+    </script>
+</body>
+</html>
